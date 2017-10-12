@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # path or command for cmake
-CMAKE_BIN=cmake
+# uncomment this to use the system one
+#CMAKE_BIN=cmake
+# uncomment this to use the freshly installed one
+CMAKE_BIN=$(pwd)/cmake_installRelease/bin/cmake
 
 # build type, can be "Release" or "Debug"
 BUILD_TYPE=Release
