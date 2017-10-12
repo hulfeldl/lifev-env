@@ -1,0 +1,11 @@
+
+Troubleshooting:
+
+ - If wget gives the error "ERROR 404: Not Found" the link to download the
+   package could be outdated, or the version requested could be too old. Go to
+   the website of the package and check the latest version and the link to
+   download the source package, then change the build script accordingly.
+
+ - Sometimes, if CMake gives you "strange" errors, try to manually delete the
+   configured directory and re-run cmake.
+
