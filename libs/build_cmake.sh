@@ -6,48 +6,40 @@
 # Andrea Bartezzaghi, 10-Oct-2017
 #
 
-# version to consider
-VERSION=3.9.4  # 12-Oct-2017
-VERSION_MAJOR=3.9
-
 # load config
 source config.sh
 
 # stop on errors
 set -e
 
+# NOTE: version is specified in config.sh
+
+# name to use
+NAME=cmake-${CMAKE_VERSION}
+
 # download package in temporary directory
-PACKAGE="cmake-${VERSION}.tar.gz"
-mkdir -p temp
-cd temp
-wget -c --no-check-certificate "http://www.cmake.org/files/v${VERSION_MAJOR}/${PACKAGE}"
-cd ..
+PACKAGE=${NAME}.tar.gz
+cd ${PACKAGES_DIR}
+wget -c --no-check-certificate "http://www.cmake.org/files/v${CMAKE_VERSION_MAJOR}/${PACKAGE}"
 
-# extract
-tar -xf temp/$PACKAGE
-
-# get current directory
-CUR_DIR=$(pwd)
-
-# directory of the source files
-SOURCE_DIR=${CUR_DIR}/cmake-${VERSION}
-
-# directory of build
-BUILD_DIR=${CUR_DIR}/cmake_build${BUILD_TYPE}
-
-# directory of install
-INSTALL_DIR=${CUR_DIR}/cmake_install${BUILD_TYPE}
+# extract sources
+cd ${SOURCES_DIR}
+tar -xf ${PACKAGES_DIR}/${PACKAGE}
 
 # enter build directory
+BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
 mkdir -p ${BUILD_DIR}
 cd ${BUILD_DIR}
 
+# NOTE: install directory is specified in config.sh
+
 # bootstrap
-${SOURCE_DIR}/bootstrap --prefix=${INSTALL_DIR}
+SOURCE_DIR=${SOURCES_DIR}/${NAME}
+${SOURCE_DIR}/bootstrap --prefix=${CMAKE_INSTALL_DIR}
 
 # build and install
 make -j${NUM_PROCS} install
 
 # exit build directory
-cd ${CUR_DIR}
+cd ${LIBRARIES_DIR}
 
