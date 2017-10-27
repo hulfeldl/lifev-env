@@ -14,7 +14,7 @@ set -e
 
 LIFEV=lifev-cmcs
 
-POSTFIX=
+POSTFIX=-all
 
 BUILD_TYPE=Release
 #BUILD_TYPE=Debug
@@ -49,23 +49,7 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D MPI_EXEC=$MPI_EXEC \
       -D LifeV_ENABLE_CPP11:BOOL=ON \
       -D LifeV_ENABLE_STRONG_CXX_COMPILE_WARNINGS:BOOL=OFF \
-      -D LifeV_ENABLE_ALL_PACKAGES:BOOL=OFF \
-      -D LifeV_ENABLE_Core:BOOL=ON \
-      -D LifeV_ENABLE_BCInterface:BOOL=OFF \
-      -D LifeV_ENABLE_OneDFSI:BOOL=OFF \
-      -D LifeV_ENABLE_LevelSet:BOOL=OFF \
-      -D LifeV_ENABLE_Darcy:BOOL=OFF \
-      -D LifeV_ENABLE_NavierStokes:BOOL=OFF \
-      -D LifeV_ENABLE_ZeroDimensional:BOOL=OFF \
-      -D LifeV_ENABLE_Multiscale:BOOL=OFF \
-      -D LifeV_ENABLE_IntegratedHeart:BOOL=OFF \
-      -D LifeV_ENABLE_ETA:BOOL=ON \
-      -D LifeV_ENABLE_Structure:BOOL=OFF \
-      -D LifeV_ENABLE_NavierStokesBlocks:BOOL=ON \
-      -D LifeV_ENABLE_FSI_blocks:BOOL=OFF \
-      -D LifeV_ENABLE_Electrophysiology:BOOL=OFF \
-      -D LifeV_ENABLE_FSI:BOOL=OFF \
-      -D LifeV_ENABLE_Hearth:BOOL=OFF \
+      -D LifeV_ENABLE_ALL_PACKAGES:BOOL=ON \
       -D LifeV_ENABLE_TESTS:BOOL=ON \
       -D LifeV_ENABLE_EXAMPLES:BOOL=ON \
       -D TPL_ENABLE_MPI:BOOL=ON \
