@@ -20,7 +20,7 @@ NAME=cmake-${CMAKE_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-wget -c --no-check-certificate "http://www.cmake.org/files/v${CMAKE_VERSION_MAJOR}/${PACKAGE}"
+$WGET -c --no-check-certificate "http://www.cmake.org/files/v${CMAKE_VERSION_MAJOR}/${PACKAGE}"
 
 # extract sources
 cd ${SOURCES_DIR}
@@ -38,7 +38,7 @@ SOURCE_DIR=${SOURCES_DIR}/${NAME}
 ${SOURCE_DIR}/bootstrap --prefix=${CMAKE_INSTALL_DIR}
 
 # build and install
-make -j${NUM_PROCS} install
+make -j${NUM_PROC} install
 
 # exit build directory
 cd ${LIBRARIES_DIR}

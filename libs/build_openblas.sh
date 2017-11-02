@@ -20,7 +20,7 @@ NAME=OpenBLAS-${OPENBLAS_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-wget -c -O ${PACKAGE} "http://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.tar.gz"
+$WGET -c -O ${PACKAGE} "http://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.tar.gz"
 
 # extract sources
 cd ${SOURCES_DIR}

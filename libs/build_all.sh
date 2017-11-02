@@ -2,7 +2,7 @@
 
 set -e
 
-#./build_cmake.sh
+./build_cmake.sh
 
 ./build_openblas.sh
 
@@ -11,4 +11,8 @@ set -e
 ./build_parmetis.sh
 
 ./build_hdf5.sh
+
+./build_suitesparse.sh
+
+./build_trilinos.sh
 

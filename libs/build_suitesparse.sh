@@ -20,7 +20,7 @@ NAME=SuiteSparse-${SUITESPARSE_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-wget -c "http://faculty.cse.tamu.edu/davis/SuiteSparse/${PACKAGE}"
+$WGET -c "http://faculty.cse.tamu.edu/davis/SuiteSparse/${PACKAGE}"
 
 # extract sources
 cd ${SOURCES_DIR}

@@ -20,7 +20,7 @@ NAME=metis-${METIS_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-wget -c "http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${PACKAGE}"
+$WGET -c "http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${PACKAGE}"
 
 # extract sources
 cd ${SOURCES_DIR}
