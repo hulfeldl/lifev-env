@@ -40,6 +40,14 @@ cd ${BUILD_DIR}
 # Trilinos packages "NOT found, some test might not compile properly":
 # - NOX, thyra, teko, stratimikos, shylu 
 
+# load parameters from custom config file
+if [ ! -f "lifev_config.sh" ]; then
+    echo "ERROR: could not find lifev_config.sh with custom configuration!"
+    exit 1
+fi
+
+source config.sh
+
 # configure
 ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D CMAKE_INSTALL_PREFIX=${INSTALL_DIR} \
@@ -68,6 +76,7 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D LifeV_ENABLE_Hearth:BOOL=OFF \
       -D LifeV_ENABLE_TESTS:BOOL=ON \
       -D LifeV_ENABLE_EXAMPLES:BOOL=ON \
+      ${PARAMS} \
       -D TPL_ENABLE_MPI:BOOL=ON \
       -D TPL_ENABLE_HDF5:BOOL=ON \
       -D TPL_ENABLE_Boost:BOOL=ON \
