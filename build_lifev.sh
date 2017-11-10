@@ -30,10 +30,6 @@ else
   INSTALL_DIR=${SOURCE_DIR}${POSTFIX}-install
 fi
 
-# enter build directory
-mkdir -p ${BUILD_DIR}
-cd ${BUILD_DIR}
-
 #TPL_MPI_INCLUDE_DIRS:STRING=/usr/lib/openmpi/include \
 #    -D TPL_MPI_LIBRARIES:STRING=/usr/lib/openmpi/lib
 
@@ -46,7 +42,17 @@ if [ ! -f "lifev_config.sh" ]; then
     exit 1
 fi
 
-source config.sh
+source lifev_config.sh
+
+# check config packages
+PARAMS2=
+if [ "$ENABLE_NAVIER_STOKES" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_NavierStokes:BOOL=${ENABLE_NAVIER_STOKES}"
+fi
+
+# enter build directory
+mkdir -p ${BUILD_DIR}
+cd ${BUILD_DIR}
 
 # configure
 ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
@@ -63,19 +69,21 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D LifeV_ENABLE_OneDFSI:BOOL=OFF \
       -D LifeV_ENABLE_LevelSet:BOOL=OFF \
       -D LifeV_ENABLE_Darcy:BOOL=OFF \
-      -D LifeV_ENABLE_NavierStokes:BOOL=OFF \
       -D LifeV_ENABLE_ZeroDimensional:BOOL=OFF \
       -D LifeV_ENABLE_Multiscale:BOOL=OFF \
       -D LifeV_ENABLE_IntegratedHeart:BOOL=OFF \
-      -D LifeV_ENABLE_ETA:BOOL=ON \
+      -D LifeV_ENABLE_ETA:BOOL=${ENABLE_ETA} \
       -D LifeV_ENABLE_Structure:BOOL=OFF \
-      -D LifeV_ENABLE_NavierStokesBlocks:BOOL=ON \
+      -D LifeV_ENABLE_NavierStokesBlocks:BOOL=${ENABLE_NAVIER_STOKES_BLOCKS} \
       -D LifeV_ENABLE_FSI_blocks:BOOL=OFF \
       -D LifeV_ENABLE_Electrophysiology:BOOL=OFF \
       -D LifeV_ENABLE_FSI:BOOL=OFF \
       -D LifeV_ENABLE_Hearth:BOOL=OFF \
-      -D LifeV_ENABLE_TESTS:BOOL=ON \
-      -D LifeV_ENABLE_EXAMPLES:BOOL=ON \
+      -D LifeV_ENABLE_ReducedBasis:BOOL=${ENABLE_REDUCED_BASIS} \
+      -D LifeV_ENABLE_IGA:BOOL=${ENABLE_IGA} \
+      -D LifeV_ENABLE_TESTS:BOOL=${ENABLE_TESTS} \
+      -D LifeV_ENABLE_EXAMPLES:BOOL=${ENABLE_EXAMPLES} \
+      ${PARAMS2} \
       ${PARAMS} \
       -D TPL_ENABLE_MPI:BOOL=ON \
       -D TPL_ENABLE_HDF5:BOOL=ON \
