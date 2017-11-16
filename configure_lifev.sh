@@ -4,7 +4,7 @@
 #
 # Custom settings are loaded from the provided 'lifev_config.sh' file
 #
-# Andrea Bartezzaghi, 10-Oct-2017
+# Andrea Bartezzaghi, 14-Nov-2017
 #
 
 # load config
@@ -14,6 +14,7 @@ source libs/config.sh
 set -e
 
 # provide default values
+
 LIFEV=lifev-release
 
 POSTFIX=
@@ -26,7 +27,6 @@ if [ ! -f "lifev_config.sh" ]; then
     echo "ERROR: could not find lifev_config.sh with custom configuration!"
     exit 1
 fi
-
 source lifev_config.sh
 
 # directories
@@ -40,16 +40,64 @@ else
   INSTALL_DIR=${SOURCE_DIR}${POSTFIX}-install
 fi
 
-#TPL_MPI_INCLUDE_DIRS:STRING=/usr/lib/openmpi/include \
-#    -D TPL_MPI_LIBRARIES:STRING=/usr/lib/openmpi/lib
-
-# Trilinos packages "NOT found, some test might not compile properly":
-# - NOX, thyra, teko, stratimikos, shylu 
+# NOTE: Trilinos packages "NOT found, some test might not compile properly":
+# - NOX, thyra, teko, stratimikos, shylu (not really necessary)
 
 # check config packages
 PARAMS2=
+if [ "$ENABLE_ETA" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_ETA:BOOL=${ENABLE_ETA}"
+fi
+if [ "$ENABLE_ONEDFSI" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_OneDFSI:BOOL=${ENABLE_ONEDFSI}"
+fi
+if [ "$ENABLE_LEVEL_SET" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_LevelSet:BOOL=${ENABLE_LEVEL_SET}"
+fi
+if [ "$ENABLE_DARCY" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_Darcy:BOOL=${ENABLE_DARCY}"
+fi
 if [ "$ENABLE_NAVIER_STOKES" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_NavierStokes:BOOL=${ENABLE_NAVIER_STOKES}"
+fi
+if [ "$ENABLE_NAVIER_STOKES_BLOCKS" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_NavierStokesBlocks:BOOL=${ENABLE_NAVIER_STOKES_BLOCKS}"
+fi
+if [ "$ENABLE_STRUCTURE" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_Structure:BOOL=${ENABLE_STRUCTURE}"
+fi
+if [ "$ENABLE_ELECTROPHYSIOLOGY" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_Electrophysiology:BOOL=${ENABLE_ELECTROPHYSIOLOGY}"
+fi
+if [ "$ENABLE_FSI_BLOCKS" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_FSI_blocks:BOOL=${ENABLE_FSI_BLOCKS}"
+fi
+if [ "$ENABLE_FSI" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_FSI:BOOL=${ENABLE_FSI}"
+fi
+if [ "$ENABLE_HEART" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_Heart:BOOL=${ENABLE_HEART}"
+fi
+if [ "$ENABLE_BC_INTERFACE" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_BCInterface:BOOL=${ENABLE_BC_INTERFACE}"
+fi
+if [ "$ENABLE_ZERO_DIMENSIONAL" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_ZeroDimensional:BOOL=${ENABLE_ZERO_DIMENSIONAL}"
+fi
+if [ "$ENABLE_MULTISCALE" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_Multiscale:BOOL=${ENABLE_MULTISCALE}"
+fi
+if [ "$ENABLE_DUMMY" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_Dummy:BOOL=${ENABLE_DUMMY}"
+fi
+if [ "$ENABLE_INTEGRATED_HEART" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_IntegratedHeart:BOOL=${ENABLE_INTEGRATED_HEART}"
+fi
+if [ "$ENABLE_REDUCED_BASIS" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_ReducedBasis:BOOL=${ENABLE_REDUCED_BASIS}"
+fi
+if [ "$ENABLE_IGA" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_IGA:BOOL=${ENABLE_IGA}"
 fi
 
 # enter build directory
@@ -67,20 +115,20 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D LifeV_ENABLE_STRONG_CXX_COMPILE_WARNINGS:BOOL=OFF \
       -D LifeV_ENABLE_ALL_PACKAGES:BOOL=OFF \
       -D LifeV_ENABLE_Core:BOOL=ON \
-      -D LifeV_ENABLE_BCInterface:BOOL=OFF \
-      -D LifeV_ENABLE_OneDFSI:BOOL=OFF \
-      -D LifeV_ENABLE_LevelSet:BOOL=OFF \
-      -D LifeV_ENABLE_Darcy:BOOL=OFF \
-      -D LifeV_ENABLE_ZeroDimensional:BOOL=OFF \
-      -D LifeV_ENABLE_Multiscale:BOOL=OFF \
-      -D LifeV_ENABLE_IntegratedHeart:BOOL=OFF \
+      -D LifeV_ENABLE_BCInterface:BOOL=${ENABLE_BC_INTERFACE} \
+      -D LifeV_ENABLE_OneDFSI:BOOL=${ENABLE_ONEDFSI} \
+      -D LifeV_ENABLE_LevelSet:BOOL=${ENABLE_LEVEL_SET} \
+      -D LifeV_ENABLE_Darcy:BOOL=${ENABLE_DARCY} \
+      -D LifeV_ENABLE_ZeroDimensional:BOOL=${ENABLE_ZERO_DIMENSIONAL} \
+      -D LifeV_ENABLE_Multiscale:BOOL=${ENABLE_MULTISCALE} \
+      -D LifeV_ENABLE_IntegratedHeart:BOOL=${ENABLE_INTEGRATED_HEART} \
       -D LifeV_ENABLE_ETA:BOOL=${ENABLE_ETA} \
-      -D LifeV_ENABLE_Structure:BOOL=OFF \
+      -D LifeV_ENABLE_Structure:BOOL=${ENABLE_STRUCTURE} \
       -D LifeV_ENABLE_NavierStokesBlocks:BOOL=${ENABLE_NAVIER_STOKES_BLOCKS} \
-      -D LifeV_ENABLE_FSI_blocks:BOOL=OFF \
-      -D LifeV_ENABLE_Electrophysiology:BOOL=OFF \
-      -D LifeV_ENABLE_FSI:BOOL=OFF \
-      -D LifeV_ENABLE_Hearth:BOOL=OFF \
+      -D LifeV_ENABLE_FSI_blocks:BOOL=${ENABLE_FSI_BLOCKS} \
+      -D LifeV_ENABLE_Electrophysiology:BOOL=${ENABLE_ELECTROPHYSIOLOGY} \
+      -D LifeV_ENABLE_FSI:BOOL=${ENABLE_FSI} \
+      -D LifeV_ENABLE_Heart:BOOL=${ENABLE_HEART} \
       -D LifeV_ENABLE_ReducedBasis:BOOL=${ENABLE_REDUCED_BASIS} \
       -D LifeV_ENABLE_IGA:BOOL=${ENABLE_IGA} \
       -D LifeV_ENABLE_TESTS:BOOL=${ENABLE_TESTS} \
