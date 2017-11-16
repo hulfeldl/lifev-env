@@ -1,7 +1,8 @@
 #!/bin/bash
 #
-# Script to build OpenBLAS
-# Webpage: http://www.openblas.net/
+# Script to configure LifeV
+#
+# Custom settings are loaded from the provided 'lifev_config.sh' file
 #
 # Andrea Bartezzaghi, 10-Oct-2017
 #
@@ -12,12 +13,21 @@ source libs/config.sh
 # stop on errors
 set -e
 
-LIFEV=lifev-cmcs
+# provide default values
+LIFEV=lifev-release
 
 POSTFIX=
 
 BUILD_TYPE=Release
 #BUILD_TYPE=Debug
+
+# load parameters from custom config file
+if [ ! -f "lifev_config.sh" ]; then
+    echo "ERROR: could not find lifev_config.sh with custom configuration!"
+    exit 1
+fi
+
+source lifev_config.sh
 
 # directories
 SCRIPT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -35,14 +45,6 @@ fi
 
 # Trilinos packages "NOT found, some test might not compile properly":
 # - NOX, thyra, teko, stratimikos, shylu 
-
-# load parameters from custom config file
-if [ ! -f "lifev_config.sh" ]; then
-    echo "ERROR: could not find lifev_config.sh with custom configuration!"
-    exit 1
-fi
-
-source lifev_config.sh
 
 # check config packages
 PARAMS2=

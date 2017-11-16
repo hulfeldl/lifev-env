@@ -2,8 +2,18 @@
 
 # set here your custom parameters
 
+LIFEV=lifev-cmcs
+
+POSTFIX=
+
+BUILD_TYPE=Release
+#BUILD_TYPE=Debug
+
+# modules
 ENABLE_ETA=0
+
 #ENABLE_NAVIER_STOKES=0
+
 ENABLE_NAVIER_STOKES_BLOCKS=0
 
 # enable the compilation of the tests
