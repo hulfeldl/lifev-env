@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Build all libraries at once
+#
+# Andrea Bartezzaghi, 15-Nov-2017
+#
 
 set -e
 

@@ -7,6 +7,10 @@
 #
 
 # load config
+if [ ! -f "config.sh" ]; then
+    echo "config.sh not found! Please copy config_example.sh to config.sh and customize it to your needs."
+    exit 1
+fi
 source config.sh
 
 # stop on errors
