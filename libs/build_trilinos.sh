@@ -23,7 +23,9 @@ NAME=trilinos-${TRILINOS_VERSION}
 # download package in temporary directory
 PACKAGE="${NAME}-Source.tar.gz"
 cd ${PACKAGES_DIR}
-$WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
+if [ ! -f "$PACKAGE" ]; then
+    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
+fi
 
 # extract sources
 cd ${SOURCES_DIR}

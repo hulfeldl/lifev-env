@@ -23,7 +23,9 @@ NAME=parmetis-${PARMETIS_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-$WGET -c "http://glaros.dtc.umn.edu/gkhome/fetch/sw/parmetis/${PACKAGE}"
+if [ ! -f "$PACKAGE" ]; then
+    $WGET -c "http://glaros.dtc.umn.edu/gkhome/fetch/sw/parmetis/${PACKAGE}"
+fi
 
 # extract sources
 cd ${SOURCES_DIR}

@@ -23,7 +23,9 @@ NAME=cmake-${CMAKE_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-$WGET -c --no-check-certificate "http://www.cmake.org/files/v${CMAKE_VERSION_MAJOR}/${PACKAGE}"
+if [ ! -f "$PACKAGE" ]; then
+    $WGET -c --no-check-certificate "http://www.cmake.org/files/v${CMAKE_VERSION_MAJOR}/${PACKAGE}"
+fi
 
 # extract sources
 cd ${SOURCES_DIR}

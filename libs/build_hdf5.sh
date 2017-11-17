@@ -23,7 +23,9 @@ NAME=hdf5-${HDF5_VERSION}
 # download package in temporary directory
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
-$WGET -c "https://support.hdfgroup.org/ftp/HDF5/current${HDF5_VERSION_MAJOR}/src/${PACKAGE}"
+if [ ! -f "$PACKAGE" ]; then
+    $WGET -c "https://support.hdfgroup.org/ftp/HDF5/current${HDF5_VERSION_MAJOR}/src/${PACKAGE}"
+fi
 
 # extract sources
 cd ${SOURCES_DIR}
