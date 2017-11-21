@@ -11,6 +11,8 @@ set -e
 
 ./build_openblas.sh
 
+./build_boost.sh
+
 ./build_metis.sh
 
 ./build_parmetis.sh
