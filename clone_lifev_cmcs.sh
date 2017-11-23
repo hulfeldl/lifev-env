@@ -5,5 +5,5 @@
 # Andrea Bartezzaghi, 14-Nov-2017
 #
 
-git clone git@bitbucket.org:lifev-dev/lifev-cmcs
+git clone git@bitbucket.org:lifev-dev/lifev-cmcs lifev-cmcs
 

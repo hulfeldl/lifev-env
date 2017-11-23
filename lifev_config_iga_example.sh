@@ -6,7 +6,7 @@
 #
 
 # LifeV source directory (lifev-release, lifev-dev, ...)
-LIFEV=lifev-release
+LIFEV=lifev-cmcs-iga
 
 # additional postfix to add to the build directory
 POSTFIX=
@@ -47,11 +47,11 @@ BUILD_TYPE=Release
 
 #ENABLE_MULTISCALE=ON
 
-#ENABLE_INTEGRATED_HEART=ON
+ENABLE_INTEGRATED_HEART=ON
 
 #ENABLE_REDUCED_BASIS=ON
 
-#ENABLE_IGA=ON
+ENABLE_IGA=ON
 
 # enable the compilation of the tests
 ENABLE_TESTS=ON
@@ -61,4 +61,19 @@ ENABLE_EXAMPLES=ON
 
 # set this to pass additional parameters to cmake
 PARAMS=
+
+# pass isoglib TPL path
+
+# current directory
+CURDIR=$(pwd)
+
+# directories of isoglib
+ISOGLIB_BASE="$CURDIR/$LIFEV/iga/isoglib"
+ISOGLIB_BUILD_DIR="$ISOGLIB_BASE/BuildRelease"
+ISOGLIB_INCLUDE_DIR="$ISOGLIB_BUILD_DIR;$ISOGLIB_BASE"
+ISOGLIB_LIB_DIR="$ISOGLIB_BUILD_DIR"
+
+# pass them to cmake
+PARAMS="${PARAMS} -D isoGlib_INCLUDE_DIRS:PATH=$ISOGLIB_INCLUDE_DIR"
+PARAMS="${PARAMS} -D isoGlib_LIBRARY_DIRS:PATH=$ISOGLIB_LIB_DIR"
 
