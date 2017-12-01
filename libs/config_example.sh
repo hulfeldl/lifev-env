@@ -18,7 +18,7 @@ FORTRAN_COMPILER=gfortran
 MPI_C_COMPILER=mpicc
 MPI_CXX_COMPILER=mpic++
 MPI_FORTRAN_COMPILER=mpif90
-MPIEXEC=mpiexec
+MPI_EXEC=mpiexec
 
 # wget, for downloading packages
 WGET=wget # uncomment this to enable downloads
