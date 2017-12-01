@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# Example of configuration file for building the libraries
+# Configuration file for the third part libraries compatible with the modules system at MOX
 #
 # Copy this file to "config.sh" and customize it for your needs
 #
-# Andrea Bartezzaghi, 15-Nov-2017
+# Stefania Fresca, Simone di Gregorio, Francesco Regazzoni, 24-Nov-2017
 #
 
 # build type, can be "Release" or "Debug"
@@ -58,49 +58,44 @@ export CMAKE_VERSION_MAJOR=3.9
 export CMAKE_INSTALL_DIR=${INSTALLS_DIR}/cmake-${CMAKE_VERSION}_install${BUILD_TYPE}
 
 # uncomment this to use cmake provided by the system
-#export CMAKE_BIN=cmake
+export CMAKE_BIN=cmake
 
 # uncomment this to use the freshly installed cmake to build
-export CMAKE_BIN=${CMAKE_INSTALL_DIR}/bin/cmake
+#export CMAKE_BIN=${CMAKE_INSTALL_DIR}/bin/cmake
 
 #============================================================
 #  BOOST
 #============================================================
 
-export BOOST_VERSION_1=1_65_1
-export BOOST_VERSION_2=1.65.1
-export BOOST_INSTALL_DIR=${INSTALLS_DIR}/boost_${BOOST_VERSION_1}_install${BUILD_TYPE}
-export BOOST_INCLUDE_DIR=${BOOST_INSTALL_DIR}/include
+export BOOST_INSTALL_DIR=$mkBoostPrefix
+export BOOST_INCLUDE_DIR=$mkBoostInc
 
 #============================================================
 #  BLAS + Lapack
 #============================================================
 
-export OPENBLAS_VERSION=0.2.20  # 24-Jul-2017
-export OPENBLAS_INSTALL_DIR=${INSTALLS_DIR}/OpenBLAS-${OPENBLAS_VERSION}_install${BUILD_TYPE}
-export BLAS_LIBRARIES="${OPENBLAS_INSTALL_DIR}/lib/libopenblas.a;gfortran"
+export OPENBLAS_INSTALL_DIR=$mkOpenblasPrefix
+export BLAS_LIBRARIES="${OPENBLAS_INSTALL_DIR}/lib/libopenblas.so;gfortran"
 
-export LAPACK_LIBRARIES=${OPENBLAS_INSTALL_DIR}/lib/libopenblas.a
+export LAPACK_LIBRARIES=${OPENBLAS_INSTALL_DIR}/lib/libopenblas.so
 
 #============================================================
 #  METIS
 #============================================================
 
-export METIS_VERSION=5.1.0
-export METIS_INSTALL_DIR=${INSTALLS_DIR}/metis-${METIS_VERSION}_install${BUILD_TYPE}
+export METIS_INSTALL_DIR=$mkMetisPrefix
 export METIS_INCLUDE_DIR=${METIS_INSTALL_DIR}/include
 export METIS_LIB_DIR=${METIS_INSTALL_DIR}/lib
-export METIS_LIBRARIES=${METIS_LIB_DIR}/libmetis.a
+export METIS_LIBRARIES=${METIS_LIB_DIR}/libmetis.so
 
 #============================================================
 #  ParMETIS
 #============================================================
 
-export PARMETIS_VERSION=4.0.3
-export PARMETIS_INSTALL_DIR=${INSTALLS_DIR}/parmetis-${PARMETIS_VERSION}_install${BUILD_TYPE}
+export PARMETIS_INSTALL_DIR=$mkMetisPrefix
 export PARMETIS_INCLUDE_DIR=${PARMETIS_INSTALL_DIR}/include
 export PARMETIS_LIB_DIR=${PARMETIS_INSTALL_DIR}/lib
-export PARMETIS_LIBRARIES="$PARMETIS_LIB_DIR/libparmetis.a;$METIS_LIB_DIR/libmetis.a"
+export PARMETIS_LIBRARIES="$PARMETIS_LIB_DIR/libparmetis.so;$METIS_LIB_DIR/libmetis.so"
 
 #============================================================
 #  HDF5
@@ -108,7 +103,7 @@ export PARMETIS_LIBRARIES="$PARMETIS_LIB_DIR/libparmetis.a;$METIS_LIB_DIR/libmet
 
 export HDF5_VERSION=1.8.19
 export HDF5_VERSION_MAJOR=18
-export HDF5_INSTALL_DIR=${INSTALLS_DIR}/hdf5-${HDF5_VERSION}_install${BUILD_TYPE}
+export HDF5_INSTALL_DIR=$mkHdf5Prefix
 export HDF5_INCLUDE_DIR=${HDF5_INSTALL_DIR}/include
 export HDF5_LIB_DIR=${HDF5_INSTALL_DIR}/lib
 
@@ -118,7 +113,7 @@ export HDF5_LIB_DIR=${HDF5_INSTALL_DIR}/lib
 
 export SUITESPARSE_VERSION=4.5.6
 #export SUITESPARSE_VERSION=4.4.5
-export SUITESPARSE_INSTALL_DIR=${INSTALLS_DIR}/suitesparse-${SUITESPARSE_VERSION}_install${BUILD_TYPE}
+export SUITESPARSE_INSTALL_DIR=$mkSuitesparsePrefix
 export SUITESPARSE_INCLUDE_DIR=${SUITESPARSE_INSTALL_DIR}/include
 export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
 
@@ -128,7 +123,7 @@ export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
 
 export TRILINOS_VERSION=12.12.1
 #export TRILINOS_VERSION=12.6.1
-export TRILINOS_INSTALL_DIR=${INSTALLS_DIR}/trilinos-${TRILINOS_VERSION}_install${BUILD_TYPE}
+export TRILINOS_INSTALL_DIR=$mkTrilinosPrefix
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib
 
