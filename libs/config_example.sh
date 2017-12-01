@@ -107,7 +107,7 @@ export PARMETIS_LIBRARIES="$PARMETIS_LIB_DIR/libparmetis.a;$METIS_LIB_DIR/libmet
 #============================================================
 
 export HDF5_VERSION=1.8.19
-export HDF5_VERSION_MAJOR=18
+export HDF5_VERSION_MAJOR=1.8
 export HDF5_INSTALL_DIR=${INSTALLS_DIR}/hdf5-${HDF5_VERSION}_install${BUILD_TYPE}
 export HDF5_INCLUDE_DIR=${HDF5_INSTALL_DIR}/include
 export HDF5_LIB_DIR=${HDF5_INSTALL_DIR}/lib
