@@ -50,6 +50,7 @@ export BLAS="${BLAS_LIBRARIES} -lpthread"
 export LAPACK=$LAPACK_LIBRARIES
 export MY_METIS_INC=$METIS_INCLUDE_DIR
 export MY_METIS_LIB=$METIS_LIBRARIES
+
 make -j${NUM_PROC} library  # for shared objects
 #make -j${NUM_PROC} static  # for static libraries
 
@@ -57,7 +58,9 @@ make -j${NUM_PROC} library  # for shared objects
 mkdir -p $SUITESPARSE_INSTALL_DIR
 mkdir -p $SUITESPARSE_INSTALL_DIR/include
 mkdir -p $SUITESPARSE_INSTALL_DIR/lib
-make install INSTALL_INCLUDE=${SUITESPARSE_INSTALL_DIR}/include INSTALL_LIB=${SUITESPARSE_INSTALL_DIR}/lib
+export INSTALL_INCLUDE=${SUITESPARSE_INSTALL_DIR}/include
+export INSTALL_LIB=${SUITESPARSE_INSTALL_DIR}/lib
+make library install
 
 # exit build directory
 cd ${LIBRARIES_DIR}

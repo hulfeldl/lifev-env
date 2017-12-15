@@ -78,9 +78,10 @@ export BOOST_INCLUDE_DIR=${BOOST_INSTALL_DIR}/include
 
 export OPENBLAS_VERSION=0.2.20  # 24-Jul-2017
 export OPENBLAS_INSTALL_DIR=${INSTALLS_DIR}/OpenBLAS-${OPENBLAS_VERSION}_install${BUILD_TYPE}
-export BLAS_LIBRARIES="${OPENBLAS_INSTALL_DIR}/lib/libopenblas.a;gfortran"
+export BLAS_LIBRARIES="${OPENBLAS_INSTALL_DIR}/lib/libopenblas.a"
+export BLAS_LIBRARIES_ADDITIONAL="gfortran"
 
-export LAPACK_LIBRARIES=${OPENBLAS_INSTALL_DIR}/lib/libopenblas.a
+export LAPACK_LIBRARIES="${OPENBLAS_INSTALL_DIR}/lib/libopenblas.a"
 
 #============================================================
 #  METIS
@@ -100,6 +101,9 @@ export PARMETIS_VERSION=4.0.3
 export PARMETIS_INSTALL_DIR=${INSTALLS_DIR}/parmetis-${PARMETIS_VERSION}_install${BUILD_TYPE}
 export PARMETIS_INCLUDE_DIR=${PARMETIS_INSTALL_DIR}/include
 export PARMETIS_LIB_DIR=${PARMETIS_INSTALL_DIR}/lib
+
+# NOTE: here we separate the two libraries by a semicolon; this works with CMake, but NOT
+# with standard makefiles! be aware!
 export PARMETIS_LIBRARIES="$PARMETIS_LIB_DIR/libparmetis.a;$METIS_LIB_DIR/libmetis.a"
 
 #============================================================
