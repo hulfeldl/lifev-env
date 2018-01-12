@@ -15,10 +15,10 @@ export C_COMPILER=gcc
 export CXX_COMPILER=g++
 export FORTRAN_COMPILER=gfortran
 
-export MPI_C_COMPILER=mpicc
-export MPI_CXX_COMPILER=mpic++
-export MPI_FORTRAN_COMPILER=mpif90
-export MPI_EXEC=mpiexec
+export MPI_C_COMPILER=$mkToolchainBase/bin/mpicc
+export MPI_CXX_COMPILER=$mkToolchainBase/bin/mpic++
+export MPI_FORTRAN_COMPILER=$mkToolchainBase/bin/mpif90
+export MPI_EXEC=$mkToolchainBase/bin/mpiexec
 
 # wget, for downloading packages
 export WGET=wget # uncomment this to enable downloads
