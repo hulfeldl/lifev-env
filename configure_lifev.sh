@@ -14,9 +14,6 @@ source libs/config.sh
 set -e
 
 # provide default values
-
-LIFEV=lifev-release
-
 POSTFIX=
 
 BUILD_TYPE=Release
