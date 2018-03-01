@@ -24,13 +24,13 @@ NAME=SuiteSparse-${SUITESPARSE_VERSION}
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
 if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "http://faculty.cse.tamu.edu/davis/SuiteSparse/${PACKAGE}"
+    $WGET -c "http://faculty.cse.tamu.edu/davis/SuiteSparse/${PACKAGE}"  || exit 1
 fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}
-rm -rf ${NAME}
+tar -xf ${PACKAGES_DIR}/${PACKAGE} || exit 1
+mv ${NAME} Trash
 mv SuiteSparse/ ${NAME}
 
 # enter build directory
@@ -42,7 +42,7 @@ cd ${BUILD_DIR}
 
 # copy from source dir to build dir
 SOURCE_DIR=${SOURCES_DIR}/${NAME}
-cp -r ${SOURCE_DIR}/* .
+cp -r ${SOURCE_DIR}/* .   || exit 1
 
 # build
 export CUDA=no
@@ -51,7 +51,7 @@ export LAPACK=$LAPACK_LIBRARIES
 export MY_METIS_INC=$METIS_INCLUDE_DIR
 export MY_METIS_LIB=$METIS_LIBRARIES
 
-make -j${NUM_PROC} library  # for shared objects
+make -j${NUM_PROC} library    || exit 1 # for shared objects
 #make -j${NUM_PROC} static  # for static libraries
 
 # manual install
@@ -60,7 +60,7 @@ mkdir -p $SUITESPARSE_INSTALL_DIR/include
 mkdir -p $SUITESPARSE_INSTALL_DIR/lib
 export INSTALL_INCLUDE=${SUITESPARSE_INSTALL_DIR}/include
 export INSTALL_LIB=${SUITESPARSE_INSTALL_DIR}/lib
-make library install
+make library install   || exit 1
 
 # exit build directory
 cd ${LIBRARIES_DIR}

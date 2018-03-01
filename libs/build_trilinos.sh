@@ -24,12 +24,12 @@ NAME=trilinos-${TRILINOS_VERSION}
 PACKAGE="${NAME}-Source.tar.gz"
 cd ${PACKAGES_DIR}
 if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
+    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}" || exit 1
 fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}
+tar -xf ${PACKAGES_DIR}/${PACKAGE} || exit 1
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
@@ -81,14 +81,14 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D AMD_LIBRARY_DIRS:PATH=${SUITESPARSE_LIB_DIR} \
       -D UMFPACK_INCLUDE_DIRS:PATH=${SUITESPARSE_INCLUDE_DIR} \
       -D UMFPACK_LIBRARY_DIRS:PATH=${SUITESPARSE_LIB_DIR} \
-      ${SOURCE_DIR}
+      ${SOURCE_DIR}  || exit 1
 
 #      -DMPI_C_COMPILER:STRING=$MPI_C_COMPILER
 #      -DMPI_CXX_COMPILER:STRING=$MPI_CXX_COMPILER
 #      -DMPI_Fortran_COMPILER:STRING=$MPI_FORTRAN_COMPILER
 
 # build and install
-make -j${NUM_PROC} install
+make -j${NUM_PROC} install  || exit 1
 
 # exit build directory
 cd ${LIBRARIES_DIR}

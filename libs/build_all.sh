@@ -7,19 +7,13 @@
 
 set -e
 
-./build_cmake.sh
 
-./build_openblas.sh
+# Remove from the list the packages that you already installed
+# PACKS=cmake openblas boost metis parmetis hdf5 suitesparse trilinos
+PACKS="openblas boost metis parmetis hdf5 suitesparse trilinos"
 
-./build_boost.sh
-
-./build_metis.sh
-
-./build_parmetis.sh
-
-./build_hdf5.sh
-
-./build_suitesparse.sh
-
-./build_trilinos.sh
-
+for p in $PACKS; do
+    echo building $p, outout to $p.out
+    nohup ./build_$p.sh > $p.out || ( echo error compiling $p && exit 1)
+    echo built $p
+done

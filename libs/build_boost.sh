@@ -7,7 +7,7 @@
 
 # load config
 if [ ! -f "config.sh" ]; then
-    echo "config.sh not found! Please copy config_example.sh to config.sh and customize it to your needs."
+    echo "config.sh not found! Please copy config_example.sh to config.sh and customize it to your needs." 
     exit 1
 fi
 source config.sh
@@ -24,12 +24,12 @@ NAME=boost_${BOOST_VERSION_1}
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
 if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "https://dl.bintray.com/boostorg/release/${BOOST_VERSION_2}/source/${PACKAGE}"
+    $WGET -c "https://dl.bintray.com/boostorg/release/${BOOST_VERSION_2}/source/${PACKAGE}"  || exit 1
 fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}
+tar -xf ${PACKAGES_DIR}/${PACKAGE}  || exit 1
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
@@ -38,12 +38,12 @@ cd ${BUILD_DIR}
 
 # copy the sources here
 SOURCE_DIR=${SOURCES_DIR}/${NAME}
-cp -r ${SOURCE_DIR}/* .
+cp -r ${SOURCE_DIR}/* .  || exit 1
 
 # NOTE: install directory is specified in config.sh
 
 # bootstrap
-./bootstrap.sh #--with-toolset=gcc
+./bootstrap.sh   || exit 1#--with-toolset=gcc
 
 # stage
 BOOST_PARAMS="--prefix=${BOOST_INSTALL_DIR} \
@@ -55,10 +55,10 @@ BOOST_PARAMS="--prefix=${BOOST_INSTALL_DIR} \
     --without-atomic --without-context --without-coroutine --without-fiber \
     --without-metaparse --without-stacktrace \
     --without-log"
-./b2 ${BOOST_PARAMS} stage
+./b2 ${BOOST_PARAMS} stage   || exit 1
 
 # install
-./b2 ${BOOST_PARAMS} install
+./b2 ${BOOST_PARAMS} install   || exit 1
 
 # exit build directory
 cd ${LIBRARIES_DIR}

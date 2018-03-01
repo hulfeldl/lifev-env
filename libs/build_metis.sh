@@ -24,16 +24,16 @@ NAME=metis-${METIS_VERSION}
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
 if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${PACKAGE}"
+    $WGET -c "http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${PACKAGE}"  || exit 1
 fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}
+tar -xf ${PACKAGES_DIR}/${PACKAGE}  || exit 1
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
-mkdir -p ${BUILD_DIR}
+mkdir -p ${BUILD_DIR}  || exit 1
 cd ${BUILD_DIR}
 
 # NOTE: install directory is specified in config.sh
@@ -46,10 +46,10 @@ ${CMAKE_BIN} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -DCMAKE_CXX_COMPILER:STRING=${CXX_COMPILER} \
       -DGKLIB_PATH=${SOURCE_DIR}/GKlib \
       -DOPENMP=ON \
-      ${SOURCE_DIR}
+      ${SOURCE_DIR}  || exit 1
 
 # build and install
-make -j${NUM_PROC} install
+make -j${NUM_PROC} install  || exit 1
 
 # exit build directory
 cd ${LIBRARIES_DIR}
