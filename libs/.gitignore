@@ -1,6 +1,13 @@
-/builds
-/installs
-/packages
-/sources
-/config.sh
 
+/boost.out
+/builds
+/config.sh
+/hdf5.out
+/installs
+/metis.out
+/openblas.out
+/packages
+/parmetis.out
+/sources
+/suitesparse.out
+/trilinos.out
