@@ -24,12 +24,12 @@ NAME=boost_${BOOST_VERSION_1}
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
 if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "https://dl.bintray.com/boostorg/release/${BOOST_VERSION_2}/source/${PACKAGE}"  || exit 1
+    $WGET -c "https://dl.bintray.com/boostorg/release/${BOOST_VERSION_2}/source/${PACKAGE}" 
 fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}  || exit 1
+tar -xf ${PACKAGES_DIR}/${PACKAGE} 
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
@@ -38,12 +38,12 @@ cd ${BUILD_DIR}
 
 # copy the sources here
 SOURCE_DIR=${SOURCES_DIR}/${NAME}
-cp -r ${SOURCE_DIR}/* .  || exit 1
+cp -r ${SOURCE_DIR}/* . 
 
 # NOTE: install directory is specified in config.sh
 
 # bootstrap
-./bootstrap.sh   || exit 1#--with-toolset=gcc
+./bootstrap.sh  #--with-toolset=gcc
 
 # stage
 BOOST_PARAMS="--prefix=${BOOST_INSTALL_DIR} \
@@ -55,10 +55,10 @@ BOOST_PARAMS="--prefix=${BOOST_INSTALL_DIR} \
     --without-atomic --without-context --without-coroutine --without-fiber \
     --without-metaparse --without-stacktrace \
     --without-log"
-./b2 ${BOOST_PARAMS} stage   || exit 1
+./b2 ${BOOST_PARAMS} stage
 
 # install
-./b2 ${BOOST_PARAMS} install   || exit 1
+./b2 ${BOOST_PARAMS} install
 
 # exit build directory
 cd ${LIBRARIES_DIR}

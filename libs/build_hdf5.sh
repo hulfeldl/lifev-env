@@ -24,12 +24,12 @@ NAME=hdf5-${HDF5_VERSION}
 PACKAGE=${NAME}.tar.gz
 cd ${PACKAGES_DIR}
 if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${HDF5_VERSION_MAJOR}/hdf5-${HDF5_VERSION}/src/${PACKAGE}"  || exit 1
+    $WGET -c "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${HDF5_VERSION_MAJOR}/hdf5-${HDF5_VERSION}/src/${PACKAGE}" 
 fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}  || exit 1
+tar -xf ${PACKAGES_DIR}/${PACKAGE} 
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
@@ -46,10 +46,10 @@ ${CMAKE_BIN} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -DCMAKE_CXX_COMPILER:STRING=${MPI_CXX_COMPILER} \
       -DHDF5_ENABLE_PARALLEL=ON \
       -DHDF5_BUILD_CPP_LIB=OFF \
-      ${SOURCE_DIR}  || exit 1
+      ${SOURCE_DIR} 
 
 # build and install
-make -j${NUM_PROC} install  || exit 1
+make -j${NUM_PROC} install 
 
 # exit build directory
 cd ${LIBRARIES_DIR}
