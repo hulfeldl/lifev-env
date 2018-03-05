@@ -92,6 +92,14 @@ if [ "$BLAS_LIBRARIES_ADDITIONAL" != "" ]; then
     BLAS_LIBRARIES_2="$BLAS_LIBRARIES_2;$BLAS_LIBRARIES_ADDITIONAL"
 fi
 
+# NOTE: this option is useful when compiling LifeV with shared objects; it
+# includes into the rpath of the generated shared libraries the path of the
+# shared object of the linked TPLs. This simplify the use of LifeV as an
+# external library, since when a new executable is linked against the
+# libraries of LifeV, all the shared objects, from the TPLs, are correctly
+# linked too (with the right paths, coming from lifev-env)
+PARAMS2="$PARAMS2 -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON"
+
 # enter build directory
 mkdir -p ${BUILD_DIR}
 cd ${BUILD_DIR}
