@@ -30,7 +30,11 @@ fi
 # extract sources
 cd ${SOURCES_DIR}
 tar -xf ${PACKAGES_DIR}/${PACKAGE}
-mv ${NAME} Trash
+# remove a super-old source directory
+rm -rf ${NAME}-OLD
+# rename an eventual old source directory
+mv ${NAME} ${NAME}-OLD
+# rename the new source directory (SourceSparse)
 mv SuiteSparse/ ${NAME}
 
 # enter build directory
@@ -51,16 +55,31 @@ export LAPACK=$LAPACK_LIBRARIES
 export MY_METIS_INC=$METIS_INCLUDE_DIR
 export MY_METIS_LIB=$METIS_LIBRARIES
 
-make -j${NUM_PROC} library    # for shared objects
-#make -j${NUM_PROC} static  # for static libraries
-
-# manual install
 mkdir -p $SUITESPARSE_INSTALL_DIR
 mkdir -p $SUITESPARSE_INSTALL_DIR/include
 mkdir -p $SUITESPARSE_INSTALL_DIR/lib
 export INSTALL_INCLUDE=${SUITESPARSE_INSTALL_DIR}/include
 export INSTALL_LIB=${SUITESPARSE_INSTALL_DIR}/lib
-make library install
+
+make -j${NUM_PROC} library install # for shared objects
+#make -j${NUM_PROC} static install # for static libraries
+
+# NOTE: it is necessary to make install directly here because otherwise
+# the rpath of the shared objects is not set to the path where the libs
+# are finally installed, but to the path where they are built!
+
+# to test the library linked libs
+echo
+echo "Check the linked libraries: they should point to the newly compiled libraries (and not to libraries installed system-wide)"
+ldd ${INSTALL_LIB}/libumfpack.so
+
+# manual install
+#mkdir -p $SUITESPARSE_INSTALL_DIR
+#mkdir -p $SUITESPARSE_INSTALL_DIR/include
+#mkdir -p $SUITESPARSE_INSTALL_DIR/lib
+#export INSTALL_INCLUDE=${SUITESPARSE_INSTALL_DIR}/include
+#export INSTALL_LIB=${SUITESPARSE_INSTALL_DIR}/lib
+#make library install
 
 # exit build directory
 cd ${LIBRARIES_DIR}
