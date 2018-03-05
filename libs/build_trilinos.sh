@@ -46,6 +46,7 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D CMAKE_CXX_COMPILER:STRING=${MPI_CXX_COMPILER} \
       -D CMAKE_Fortran_COMPILER:STRING=${MPI_FORTRAN_COMPILER} \
       -D MPI_EXEC:STRING=$MPI_EXEC \
+      -D BUILD_SHARED_LIBS:BOOL=ON \
       -D TPL_ENABLE_MPI:BOOL=ON \
       -D TPL_ENABLE_BLAS:BOOL=ON \
       -D TPL_ENABLE_LAPACK:BOOL=ON \
@@ -89,6 +90,11 @@ ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
 
 # build and install
 make -j${NUM_PROC} install
+
+# test the library linked libs
+echo
+echo "Check the linked libraries: they should point to the newly compiled libraries (and not to libraries installed system-wide)"
+ldd ${TRILINOS_INSTALL_DIR}/lib/libbelosepetra.so
 
 # exit build directory
 cd ${LIBRARIES_DIR}

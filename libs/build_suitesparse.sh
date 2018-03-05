@@ -68,7 +68,7 @@ make -j${NUM_PROC} library install # for shared objects
 # the rpath of the shared objects is not set to the path where the libs
 # are finally installed, but to the path where they are built!
 
-# to test the library linked libs
+# test the library linked libs
 echo
 echo "Check the linked libraries: they should point to the newly compiled libraries (and not to libraries installed system-wide)"
 ldd ${INSTALL_LIB}/libumfpack.so
