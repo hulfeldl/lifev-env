@@ -30,10 +30,12 @@ fi
 # extract sources
 cd ${SOURCES_DIR}
 tar -xf ${PACKAGES_DIR}/${PACKAGE}
-# remove a super-old source directory
-rm -rf ${NAME}-OLD
-# rename an eventual old source directory
-mv ${NAME} ${NAME}-OLD
+if [ -f ${NAME} ]; then
+    # remove a super-old source directory
+    rm -rf ${NAME}-OLD
+    # rename an eventual old source directory
+    mv ${NAME} ${NAME}-OLD
+fi
 # rename the new source directory (SourceSparse)
 mv SuiteSparse/ ${NAME}
 
@@ -62,7 +64,7 @@ export INSTALL_INCLUDE=${SUITESPARSE_INSTALL_DIR}/include
 export INSTALL_LIB=${SUITESPARSE_INSTALL_DIR}/lib
 
 make -j${NUM_PROC} library install # for shared objects
-#make -j${NUM_PROC} static install # for static libraries
+# make -j${NUM_PROC} static install # for static libraries
 
 # NOTE: it is necessary to make install directly here because otherwise
 # the rpath of the shared objects is not set to the path where the libs
