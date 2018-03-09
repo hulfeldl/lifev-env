@@ -2,7 +2,8 @@
 #
 # Script to configure LifeV
 #
-# Custom settings are loaded from the provided 'lifev_config.sh' file
+# Custom settings are loaded from the provided 'lifev_config.sh' file, or from
+# the configuration file passed by argument
 #
 # Andrea Bartezzaghi, 14-Nov-2017
 #
@@ -19,12 +20,18 @@ POSTFIX=
 BUILD_TYPE=Release
 #BUILD_TYPE=Debug
 
+# check arguments
+CONFIG_FILE="lifev_config.sh"
+if [ "$#" -ge "1" ]; then
+    CONFIG_FILE="$1"
+fi
+
 # load parameters from custom config file
-if [ ! -f "lifev_config.sh" ]; then
-    echo "ERROR: could not find lifev_config.sh with custom configuration!"
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "ERROR: could not find $CONFIG_FILE with custom configuration!"
     exit 1
 fi
-source lifev_config.sh
+source $CONFIG_FILE
 
 # directories
 SCRIPT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
