@@ -11,7 +11,7 @@ module purge
 
 echo "loading toolchain..."
 
-module load gcc-glibc/5
+module load gcc-glibc/7
 
 echo "loading modules..."
 
