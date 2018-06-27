@@ -1,0 +1,33 @@
+# Set the base image
+FROM debian AS build
+
+# Dockerfile author / maintainer 
+LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
+
+# Update application repository list and install the Redis server. 
+RUN apt-get update -y && apt-get install -y gcc libopenmpi-dev openmpi-bin openmpi-common python g++ gfortran wget  make 
+
+# Copy the build scripts
+copy ./libs  /development/libs/
+
+# Set path variable, such that cmake is bin found
+ENV PATH="/development/install/bin:/development/libs/cmake/install:${PATH}"
+
+
+WORKDIR /development/libs
+
+RUN ./build_all.sh config_docker.sh
+
+WORKDIR /development
+
+# Create an empty image, as we want to save the libs only
+# to be able to get an interactive session of the container
+# subsitude scratch with debian 
+
+from scratch
+# copy the libs we just build in the empty image
+copy --from=build /development/install /development/install
+
+# enable for interactive session
+# ENTRYPOINT ["/bin/bash"]
+
