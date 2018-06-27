@@ -8,8 +8,21 @@
 # Andrea Bartezzaghi, 14-Nov-2017
 #
 
+
+# check arguments
+CONFIG_FILE="lifev_config.sh"
+if [ "$#" -ge "1" ]; then
+    CONFIG_FILE="$1"
+fi
+
+LIBRARY_CONFIG_FILE=libs/config.sh
+if [ "$#" -ge "1" ]; then
+    LIBRARY_CONFIG_FILE="$2"
+fi
+
+
 # load config
-source libs/config.sh
+source $LIBRARY_CONFIG_FILE
 
 # stop on errors
 set -e
@@ -20,11 +33,6 @@ POSTFIX=
 BUILD_TYPE=Release
 #BUILD_TYPE=Debug
 
-# check arguments
-CONFIG_FILE="lifev_config.sh"
-if [ "$#" -ge "1" ]; then
-    CONFIG_FILE="$1"
-fi
 
 # load parameters from custom config file
 if [ ! -f "$CONFIG_FILE" ]; then
