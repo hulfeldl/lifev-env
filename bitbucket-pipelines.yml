@@ -1,0 +1,20 @@
+# Automatic build testing with Bitbucket pipeline 
+
+pipelines:
+  default:
+      - step:
+              name: Build dependency image
+              script:
+                  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+                  - docker build -t iheartpolimi/test:lifev-dependencies-image -f DockerfileDependencies .
+                  - docker push iheartpolimi/test:lifev-dependencies-image
+      - step:
+              name: Build LifeV-Build image
+              script:
+                  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+                  - docker build -t iheartpolimi/test:lifev-build-image -f DockerfileBuildLifeV .
+                  - docker push iheartpolimi/test:lifev-build-image
+
+options:
+  docker: true
+
