@@ -32,7 +32,8 @@ RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
 # su - mpiuser -c "cd /development/build/ && make test"
 # the terminal should start in the following directory
 #i
-RUN chown mpiuser /development
+RUN chown mpiuser /development && chown mpiuser /development/configure_lifev.sh && chown mpiuser /development/lifev_config_docker.sh && chown mpiuser /development/config_docker.sh
+
 USER mpiuser
 WORKDIR /development/source
 
