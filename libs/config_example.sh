@@ -136,3 +136,12 @@ export TRILINOS_INSTALL_DIR=${INSTALLS_DIR}/trilinos-${TRILINOS_VERSION}_install
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib
 
+#============================================================
+#  FEAP
+#============================================================
+
+#export FEAPHOME8_2=${INSTALLS_DIR}/feap_install${BUILD_TYPE}
+
+# cf also makefile.in.macosx
+export FEAP_FFOPTFLAG="-O3 -ftree-vectorize -fdefault-integer-8 -Wall"
+export FEAP_CCOPTFLAG="-O3 -ftree-vectorize -Wall"
