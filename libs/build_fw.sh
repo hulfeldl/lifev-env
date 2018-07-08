@@ -36,7 +36,7 @@ NAME=feapfw
 
 # download package in temporary directory
 SOURCES_DIR=${NAME}
-echo git clone git@bitbucket.org:codelartere/codelartere-feap-fw.git ${SOURCES_DIR}
+git clone git@bitbucket.org:codelartere/codelartere-feap-fw.git ${SOURCES_DIR}
 
 # extract sources
 pushd ${SOURCES_DIR}
@@ -49,10 +49,16 @@ echo >> makefile.in
 
 cat makefile.in.lifev-env >> makefile.in
 
+echo 'ARFEAP = $(FEAPHOME8_2)/libfeapfw_dbg.a' >> makefile.in
+
 # build inside sources
 make -j${NUM_PROC}
 
 FEAP_FW_ARCHIVE_DIR=$(pwd)
+
+install -d  ${FW_LIB_DIR} 
+install -c libfeapfw_dbg.a  ${FW_LIB_DIR} 
+
 
 popd
 
@@ -69,8 +75,8 @@ pushd ${SOURCES_DIR}
 
 echo 'MPI_FORTRAN_COMPILER =' ${MPI_FORTRAN_COMPILER} > makefile.in
 echo 'MPI_C_COMPILER =' ${MPI_C_COMPILER} >> makefile.in
-echo 'FEAP_FFOPTFLAG =' ${FEAP_FFOPTFLAG} >> makefile.in
-echo 'FEAP_CCOPTFLAG =' ${FEAP_CCOPTFLAG} >> makefile.in
+echo 'CFLAGS =' ${FW_CFLAGS} >> makefile.in
+echo 'CXXFLAGS =' ${FW_CXXFLAGSo} >> makefile.in
 
 echo "# Location of FEAP-FW archive/
 FEAP_FW_ARCHIVE=${FEAP_FW_ARCHIVE_DIR}/libfeapfw_dbg.a
@@ -80,4 +86,9 @@ cat  makefile.in.lifev-env >> makefile.in
 
 make -j${NUM_PROC}
 
+install -d  ${FW_LIB_DIR} 
+install -d  ${FW_INCLUDE_DIR} 
+install -c src/libfw.a  ${FW_LIB_DIR} 
+install -c src/*h  ${FW_INCLUDE_DIR} 
 
+popd
