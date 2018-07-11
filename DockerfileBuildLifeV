@@ -10,7 +10,8 @@ LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
 RUN apt-get update -y && apt-get install -y gcc libopenmpi-dev openmpi-bin openmpi-common python g++ gfortran ssh zlib1g-dev vim make
 #RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
 #USER mpiuser
-#
+RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
+USER mpiuser
 # copy needed files
 copy ./configure_lifev.sh /development/
 copy ./lifev_config_docker.sh /development/
@@ -20,21 +21,23 @@ ENV PATH="/development/install/bin:${PATH}"
 
 # copy all dependencies from the dependency image
 copy --from=iheartpolimi/test:lifev-dependencies-image /development/install /development/install
-RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
+#RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
 #USER mpiuser
-#chmod -R a+wrx ${BUILD_DIR}
-# There is an issue wil reading files for the tests,
+# chmod -R a+wrx ${BUILD_DIR}
+# There is an issue while reading files for the tests,
 # As the user mpiuser can not read all need files
 # To fix it data are made availavle
 # chmod -R a+wrx ${SOURCE_DIR}
-#adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
-#echo "mpiuser:a" | chpasswd
-# su - mpiuser -c "cd /development/build/ && make test"
+
+
+USER root
 # the terminal should start in the following directory
-#i
-RUN chown mpiuser /development && chown mpiuser /development/configure_lifev.sh && chown mpiuser /development/lifev_config_docker.sh && chown mpiuser /development/config_docker.sh
+WORKDIR /development/source
+RUN chown  mpiuser /development && chown mpiuser /development/*
+
 
 USER mpiuser
-WORKDIR /development/source
+
+
 
 
