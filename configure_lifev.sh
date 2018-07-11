@@ -87,6 +87,9 @@ fi
 if [ "$ENABLE_INTEGRATED_HEART" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_IntegratedHeart:BOOL=${ENABLE_INTEGRATED_HEART}"
 fi
+if [ "$ENABLE_LIFEVGUI" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_LifeVGUI:BOOL=${ENABLE_LIFEVGUI}"
+fi
 if [ "$ENABLE_REDUCED_BASIS" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_ReducedBasis:BOOL=${ENABLE_REDUCED_BASIS}"
 fi
@@ -100,6 +103,8 @@ fi
 if [ "$ENABLE_EXAMPLES" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_EXAMPLES:BOOL=${ENABLE_EXAMPLES}"
 fi
+
+
 
 # concatenate blas libraries
 BLAS_LIBRARIES_2=$BLAS_LIBRARIES
