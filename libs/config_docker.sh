@@ -45,8 +45,8 @@ export INSTALLS_DIR=/development/install
 mkdir -p $INSTALLS_DIR
 
 # set number of parallel builds to use
-export NUM_PROC=$(grep processor /proc/cpuinfo | wc -l)
-if [ $NUM_PROC -gt 8 ]; then NUM_PROC=8; fi
+export NUM_PROC=1 #$(grep processor /proc/cpuinfo | wc -l)
+#if [ $NUM_PROC -gt 8 ]; then NUM_PROC=8; fi
 
 #============================================================
 #  CMake
