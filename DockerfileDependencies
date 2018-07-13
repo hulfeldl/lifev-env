@@ -5,7 +5,7 @@ FROM debian AS build
 LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
 
 # Update application repository list and install the Redis server. 
-RUN apt-get update -y && apt-get install -y gcc libopenmpi-dev openmpi-bin openmpi-common python g++ gfortran wget  make 
+RUN apt-get update -y && apt-get install -y gcc python g++ gfortran wget  make 
 
 # Copy the build scripts
 copy ./libs  /development/libs/
