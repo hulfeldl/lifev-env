@@ -33,7 +33,7 @@ copy --from=iheartpolimi/test:lifev-dependencies-image /development/install /dev
 USER root
 # the terminal should start in the following directory
 WORKDIR /development/source
-RUN chown  mpiuser /development && chown mpiuser /development/*
+RUN mkdir /development/source-build && chown mpiuser:mpiuser /development/source-build && chown  mpiuser /development && chown mpiuser /development/*
 
 
 USER mpiuser
