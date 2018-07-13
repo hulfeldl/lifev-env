@@ -15,11 +15,6 @@ export C_COMPILER=gcc
 export CXX_COMPILER=g++
 export FORTRAN_COMPILER=gfortran
 
-export MPI_C_COMPILER=mpicc
-export MPI_CXX_COMPILER=mpic++
-export MPI_FORTRAN_COMPILER=mpif90
-export MPI_EXEC=mpiexec
-
 # wget, for downloading packages
 export WGET=wget # uncomment this to enable downloads
 #export WGET=echo # uncomment this to disable downloads
@@ -45,8 +40,37 @@ export INSTALLS_DIR=/development/install
 mkdir -p $INSTALLS_DIR
 
 # set number of parallel builds to use
-export NUM_PROC=1 #$(grep processor /proc/cpuinfo | wc -l)
+export NUM_PROC=12 #$(grep processor /proc/cpuinfo | wc -l)
 #if [ $NUM_PROC -gt 8 ]; then NUM_PROC=8; fi
+
+
+#============================================================
+#  MPI
+#============================================================
+
+#The current MPI flavour is openMPI, other should be possible 
+
+# version to consider
+export OPENMPI_VERSION=2.1.3  # 12-Oct-2017
+export OPENMPI_VERSION_MAJOR=2.1
+export OPENMPI_INSTALL_DIR=${INSTALLS_DIR}
+
+# uncomment this to use openMPI provided by the system
+#export MPI_C_COMPILER=mpicc
+#export MPI_CXX_COMPILER=mpic++
+#export MPI_FORTRAN_COMPILER=mpif90
+#export MPI_EXEC=mpiexec
+
+
+# uncomment this to use the freshly installed cmake to build
+#export CMAKE_BINcmake
+export MPI_C_COMPILER=${OPENMPI_INSTALL_DIR}/bin/mpicc
+export MPI_CXX_COMPILER=${OPENMPI_INSTALL_DIR}/bin/mpic++
+export MPI_FORTRAN_COMPILER=${OPENMPI_INSTALL_DIR}/bin/mpif90
+export MPI_EXEC=${OPENMP_INSTALL_DIR}/bin/mpiexec
+
+
+
 
 #============================================================
 #  CMake
@@ -62,6 +86,9 @@ export CMAKE_INSTALL_DIR=${INSTALLS_DIR}
 
 # uncomment this to use the freshly installed cmake to build
 export CMAKE_BIN=${CMAKE_INSTALL_DIR}/bin/cmake
+
+
+
 
 #============================================================
 #  BOOST

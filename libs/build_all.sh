@@ -12,7 +12,7 @@ set -e
 
 
 # Remove from the list the packages that you already installed
-PACKS=" cmake openblas boost metis parmetis hdf5 suitesparse trilinos"
+PACKS=" cmake openmpi openblas boost metis parmetis hdf5 suitesparse trilinos"
 
 for p in $PACKS; do
     echo building $p, outout to $p.out
