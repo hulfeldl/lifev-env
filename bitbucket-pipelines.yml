@@ -7,7 +7,7 @@ pipelines:
                   - docker
                   - libsource
                   - libpackages
-                  - libbuild
+                  - libbuilds
 
               name: Build dependency image
               script:
