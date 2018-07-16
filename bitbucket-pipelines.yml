@@ -3,7 +3,7 @@
 pipelines:
 
    default:
-       - step:
+      - step:
               caches:
                   - docker
               name: Build dependency image openMPI
