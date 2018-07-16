@@ -1,14 +1,23 @@
 # Automatic build testing with Bitbucket pipeline 
 
 pipelines:
-  default:
+
+   default:
+       - step:
+              caches:
+                  - docker
+              name: Build dependency image openMPI
+              script:
+                   - docker build --target openmpi  -f DockerfileDependencies .
       - step:
               caches:
                   - docker
-                  - libsource
-                  - libpackages
-                  - libbuilds
-
+              name: Build dependency image cmake
+              script:
+                  - docker build --target cmake -f DockerfileDependencies .
+      - step:
+              caches:
+                  - docker
               name: Build dependency image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
@@ -24,9 +33,5 @@ pipelines:
 options:
   docker: true
 
-definitions:
-  caches:
-          libsource: /development/libs/sources
-          libpackages: /development/libs/packages
-          libbuilds: /development/libs/builds
-           
+
+          
