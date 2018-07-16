@@ -5,9 +5,9 @@ pipelines:
       - step:
               caches:
                   - docker
-                  - LibSource
-                  - LibPackages
-                  - LibBuild
+                  - libsource
+                  - libpackages
+                  - libbuild
 
               name: Build dependency image
               script:
@@ -26,7 +26,7 @@ options:
 
 definitions:
   caches:
-          LibSource: /development/libs/sources
-          LibPackages: /development/libs/packages
-          LibBuilds: /development/libs/builds
+          libsource: /development/libs/sources
+          libpackages: /development/libs/packages
+          libbuilds: /development/libs/builds
            
