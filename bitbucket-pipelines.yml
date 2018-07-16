@@ -3,6 +3,12 @@
 pipelines:
   default:
       - step:
+              caches:
+                  - docker
+                  - LibSource
+                  - LibPackages
+                  - LibBuild
+
               name: Build dependency image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
@@ -18,3 +24,9 @@ pipelines:
 options:
   docker: true
 
+definitions:
+  caches:
+          LibSource: /development/libs/sources
+          LibPackages: /development/libs/packages
+          LibBuilds: /development/libs/builds
+           
