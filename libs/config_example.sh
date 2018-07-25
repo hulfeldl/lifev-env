@@ -136,3 +136,20 @@ export TRILINOS_INSTALL_DIR=${INSTALLS_DIR}/trilinos-${TRILINOS_VERSION}_install
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib
 
+#============================================================
+#  FEAP Wrapper
+#============================================================
+
+#export FEAPHOME8_2=${INSTALLS_DIR}/feap_install${BUILD_TYPE}
+
+# cf also makefile.in.macosx
+export FEAP_FFOPTFLAG="-O3 -ftree-vectorize -fdefault-integer-8 -Wall"
+export FEAP_CCOPTFLAG="-O3 -ftree-vectorize -Wall"
+
+export FW_CFLAGS="-std=c99 -pedantic -Wall  -fPIC -DPIC -DUSE_MPI"
+export FW_CXXFLAGS='-Wall -ggdb3 -fPIC -DPIC -DUSE_MPI -I$(FDDP_INCLUDE_DIR)'
+
+export FW_INSTALL_DIR=${INSTALLS_DIR}/feap_install${BUILD_TYPE}
+export FW_INCLUDE_DIR=${FW_INSTALL_DIR}/include
+export FW_LIB_DIR=${FW_INSTALL_DIR}/lib
+

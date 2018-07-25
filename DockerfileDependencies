@@ -5,7 +5,7 @@ FROM debian AS build
 LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
 
 # Update application repository list and install the Redis server. 
-RUN apt-get update -y && apt-get install -y gcc libopenmpi-dev openmpi-bin openmpi-common python g++ gfortran wget  make 
+RUN apt-get update -y && apt-get install -y gcc python g++ gfortran wget  make 
 
 # Copy the build scripts
 copy ./libs  /development/libs/
@@ -16,7 +16,22 @@ ENV PATH="/development/install/bin:/development/libs/cmake/install:${PATH}"
 
 WORKDIR /development/libs
 
-RUN ./build_all.sh config_docker.sh
+
+
+#with the base image we can build all the different subtages
+FROM build as openmpi
+RUN ./build_openmpi.sh config_docker.sh
+
+FROM build as cmake
+RUN ./build_cmake.sh config_docker.sh
+
+FROM build as final
+copy --from=openmpi /development/install /development/install
+copy --from=cmake /development/install /development/install
+RUN ./build_part.sh config_docker.sh
+
+
+
 
 WORKDIR /development
 
@@ -26,7 +41,7 @@ WORKDIR /development
 
 from scratch
 # copy the libs we just build in the empty image
-copy --from=build /development/install /development/install
+copy --from=final  /development/install /development/install
 
 # enable for interactive session
 # ENTRYPOINT ["/bin/bash"]
