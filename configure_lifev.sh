@@ -30,8 +30,8 @@ set -e
 # provide default values
 POSTFIX=
 
-#BUILD_TYPE=Release
-BUILD_TYPE=Debug
+BUILD_TYPE=Release
+#BUILD_TYPE=Debug
 
 
 # load parameters from custom config file
