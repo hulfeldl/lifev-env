@@ -20,7 +20,7 @@ copy ./libs/config_docker.sh /development/
 ENV PATH="/development/install/bin:${PATH}"
 
 # copy all dependencies from the dependency image
-copy --from=iheartpolimi/test:lifev-dependencies-image /development/install /development/install
+copy --from=iheartpolimi/lifev-dependencies-image:latest /development/install /development/install
 #RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
 #USER mpiuser
 # chmod -R a+wrx ${BUILD_DIR}

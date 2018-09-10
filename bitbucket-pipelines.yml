@@ -22,13 +22,13 @@ pipelines:
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
                   - docker build -t iheartpolimi/test:lifev-dependencies-image -f DockerfileDependencies .
-                  - docker push iheartpolimi/test:lifev-dependencies-image
+                  - docker push iheartpolimi/lifev-dependencies-image:latest
       - step:
               name: Build LifeV-Build image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                  - docker build -t iheartpolimi/test:lifev-build-image -f DockerfileBuildLifeV .
-                  - docker push iheartpolimi/test:lifev-build-image
+                  - docker build -t iheartpolimi/lifev-build-image:latest -f DockerfileBuildLifeV .
+                  - docker push iheartpolimi/lifev-build-image:latest
 
 options:
   docker: true
