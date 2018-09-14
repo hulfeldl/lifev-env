@@ -40,11 +40,13 @@ PACKAGE="${NAME}-Source.tar.gz"
 
 # extract sources
 cd ${SOURCES_DIR}
-if [ ! -d "${PACKAGES_DIR}/${PACKAGE}" ]; then
-	git clone https://github.com/trilinos/Trilinos.git ${PACKAGES_DIR}/${PACKAGE}
+if [ ! -d "${NAME}" ]; then
+	git clone https://github.com/trilinos/Trilinos.git ${NAME}
+    cd ${NAME}
 	git fetch --all --tags 
 	git checkout tags/${NAME}
 fi
+#cd ${SOURCES_DIR}
 #tar -xf ${PACKAGES_DIR}/${PACKAGE}
 
 # enter build directory
@@ -55,7 +57,7 @@ cd ${BUILD_DIR}
 # NOTE: install directory is specified in config.sh
 
 # configure
-SOURCE_DIR=${SOURCES_DIR}/${NAME}-Source
+SOURCE_DIR=${SOURCES_DIR}/${NAME}
 ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D CMAKE_INSTALL_PREFIX=${TRILINOS_INSTALL_DIR} \
       -D CMAKE_C_COMPILER:STRING=${MPI_C_COMPILER} \
