@@ -32,14 +32,20 @@ NAME=trilinos-${TRILINOS_VERSION}
 
 # download package in temporary directory
 PACKAGE="${NAME}-Source.tar.gz"
-cd ${PACKAGES_DIR}
-if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
-fi
+#cd ${PACKAGES_DIR}
+
+#if [ ! -f "$PACKAGE" ]; then
+#    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
+#fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}
+if [ ! -d "${PACKAGES_DIR}/${PACKAGE}" ]; then
+	git clone https://github.com/trilinos/Trilinos.git ${PACKAGES_DIR}/${PACKAGE}
+	git fetch --all --tags 
+	git checkout tags/${NAME}
+fi
+#tar -xf ${PACKAGES_DIR}/${PACKAGE}
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}

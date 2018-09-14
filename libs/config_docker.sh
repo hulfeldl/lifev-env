@@ -40,7 +40,7 @@ export INSTALLS_DIR=/development/install
 mkdir -p $INSTALLS_DIR
 
 # set number of parallel builds to use
-export NUM_PROC=1 #$(grep processor /proc/cpuinfo | wc -l)
+export NUM_PROC=10 #$(grep processor /proc/cpuinfo | wc -l)
 #if [ $NUM_PROC -gt 8 ]; then NUM_PROC=8; fi
 
 
@@ -157,7 +157,7 @@ export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
 #  Trilinos
 #============================================================
 
-export TRILINOS_VERSION=12.12.1
+export TRILINOS_VERSION=release-12-12-1
 #export TRILINOS_VERSION=12.6.1
 export TRILINOS_INSTALL_DIR=${INSTALLS_DIR}
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
