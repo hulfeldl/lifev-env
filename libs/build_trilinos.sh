@@ -32,14 +32,22 @@ NAME=trilinos-${TRILINOS_VERSION}
 
 # download package in temporary directory
 PACKAGE="${NAME}-Source.tar.gz"
-cd ${PACKAGES_DIR}
-if [ ! -f "$PACKAGE" ]; then
-    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
-fi
+#cd ${PACKAGES_DIR}
+
+#if [ ! -f "$PACKAGE" ]; then
+#    $WGET -c "http://trilinos.csbsju.edu/download/files/${PACKAGE}"
+#fi
 
 # extract sources
 cd ${SOURCES_DIR}
-tar -xf ${PACKAGES_DIR}/${PACKAGE}
+if [ ! -d "${NAME}" ]; then
+	git clone https://github.com/trilinos/Trilinos.git ${NAME}
+    cd ${NAME}
+	git fetch --all --tags 
+	git checkout tags/${NAME}
+fi
+#cd ${SOURCES_DIR}
+#tar -xf ${PACKAGES_DIR}/${PACKAGE}
 
 # enter build directory
 BUILD_DIR=${BUILDS_DIR}/${NAME}_build${BUILD_TYPE}
@@ -49,7 +57,7 @@ cd ${BUILD_DIR}
 # NOTE: install directory is specified in config.sh
 
 # configure
-SOURCE_DIR=${SOURCES_DIR}/${NAME}-Source
+SOURCE_DIR=${SOURCES_DIR}/${NAME}
 ${CMAKE_BIN} -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
       -D CMAKE_INSTALL_PREFIX=${TRILINOS_INSTALL_DIR} \
       -D CMAKE_C_COMPILER:STRING=${MPI_C_COMPILER} \
