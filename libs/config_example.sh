@@ -15,11 +15,6 @@ export C_COMPILER=gcc
 export CXX_COMPILER=g++
 export FORTRAN_COMPILER=gfortran
 
-export MPI_C_COMPILER=mpicc
-export MPI_CXX_COMPILER=mpic++
-export MPI_FORTRAN_COMPILER=mpif90
-export MPI_EXEC=mpiexec
-
 # wget, for downloading packages
 export WGET=wget # uncomment this to enable downloads
 #export WGET=echo # uncomment this to disable downloads
@@ -62,6 +57,30 @@ export CMAKE_INSTALL_DIR=${INSTALLS_DIR}/cmake-${CMAKE_VERSION}_install${BUILD_T
 
 # uncomment this to use the freshly installed cmake to build
 export CMAKE_BIN=${CMAKE_INSTALL_DIR}/bin/cmake
+
+#============================================================
+#  MPI
+#============================================================
+
+#The current MPI flavor is openMPI, other should be possible 
+
+# version to consider
+export OPENMPI_VERSION=2.1.3  # 12-Oct-2017
+export OPENMPI_VERSION_MAJOR=2.1
+export OPENMPI_INSTALL_DIR=${INSTALLS_DIR}/openmpi_${OPENMPI_VERSION}_install${BUILD_TYPE}
+
+# uncomment this to use openMPI provided by the system
+#export MPI_C_COMPILER=mpicc
+#export MPI_CXX_COMPILER=mpic++
+#export MPI_FORTRAN_COMPILER=mpif90
+#export MPI_EXEC=mpiexec
+
+# uncomment this to use the freshly installed cmake to build
+#export CMAKE_BINcmake
+export MPI_C_COMPILER=${OPENMPI_INSTALL_DIR}/bin/mpicc
+export MPI_CXX_COMPILER=${OPENMPI_INSTALL_DIR}/bin/mpic++
+export MPI_FORTRAN_COMPILER=${OPENMPI_INSTALL_DIR}/bin/mpif90
+export MPI_EXEC=${OPENMPI_INSTALL_DIR}/bin/mpiexec
 
 #============================================================
 #  BOOST
@@ -130,8 +149,7 @@ export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
 #  Trilinos
 #============================================================
 
-export TRILINOS_VERSION=12.12.1
-#export TRILINOS_VERSION=12.6.1
+export TRILINOS_VERSION=release-12-12-1
 export TRILINOS_INSTALL_DIR=${INSTALLS_DIR}/trilinos-${TRILINOS_VERSION}_install${BUILD_TYPE}
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib

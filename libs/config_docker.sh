@@ -158,7 +158,6 @@ export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
 #============================================================
 
 export TRILINOS_VERSION=release-12-12-1
-#export TRILINOS_VERSION=12.6.1
 export TRILINOS_INSTALL_DIR=${INSTALLS_DIR}
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib
