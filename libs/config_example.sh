@@ -155,6 +155,17 @@ export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib
 
 #============================================================
+#  VTK
+#============================================================
+
+export VTK_VERSION=v8.1.1
+export VTK_INSTALL_DIR=${INSTALLS_DIR}/vtk-${VTK_VERSION}_install${BUILD_TYPE}
+export VTK_INCLUDE_DIR=${VTK_INSTALL_DIR}/include
+export VTK_LIB_DIR=${VTK_INSTALL_DIR}/lib
+
+export VTK_DIR=${VTK_LIB_DIR}/cmake/vtk-8.1
+
+#============================================================
 #  FEAP Wrapper
 #============================================================
 
