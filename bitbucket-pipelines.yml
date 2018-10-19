@@ -12,23 +12,23 @@ pipelines:
       - step:
               caches:
                   - docker
-              name: Build dependency image cmake
+              name: Build dependency image cmake VTK
               script:
-                  - docker build --target cmake -f DockerfileDependencies .
+                  - docker build --target cmakevtk -f DockerfileDependencies .
       - step:
               caches:
                   - docker
               name: Build dependency image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                  - docker build -t iheartpolimi/lifev-dependencies-image:latest -f DockerfileDependencies .
-                  - docker push iheartpolimi/lifev-dependencies-image:latest
+                  - docker build -t iheartpolimi/test:lifev-dependencies-image-candidate -f DockerfileDependencies .
+                  - docker push iheartpolimi/test:lifev-dependencies-image-candidate
       - step:
               name: Build LifeV-Build image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                  - docker build -t iheartpolimi/lifev-build-image:latest -f DockerfileBuildLifeV .
-                  - docker push iheartpolimi/lifev-build-image:latest
+                  - docker build -t iheartpolimi/test:lifev-build-image-candidate -f DockerfileBuildLifeV .
+                  - docker push iheartpolimi/test:lifev-build-image-candidate
 
 options:
   docker: true

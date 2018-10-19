@@ -1,5 +1,5 @@
 # Set the base image
-FROM debian AS build
+FROM ubuntu:18.04 AS build
 
 # Dockerfile author / maintainer /
 LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
@@ -7,7 +7,7 @@ LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
 
 
 # Update application repository list and install the Redis server. 
-RUN apt-get update -y && apt-get install -y gcc python g++ gfortran ssh zlib1g-dev vim make
+RUN apt-get update -y && apt-get install -y gcc python g++ gfortran ssh zlib1g-dev nano vim make
 #RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
 #USER mpiuser
 RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
@@ -20,7 +20,7 @@ copy ./libs/config_docker.sh /development/
 ENV PATH="/development/install/bin:${PATH}"
 
 # copy all dependencies from the dependency image
-copy --from=iheartpolimi/lifev-dependencies-image:latest /development/install /development/install
+copy --from=iheartpolimi/test:lifev-dependencies-image-candidate /development/install /development/install
 #RUN  adduser --quiet --disabled-password --gecos "User" -shell /bin/bash mpiuser
 #USER mpiuser
 # chmod -R a+wrx ${BUILD_DIR}

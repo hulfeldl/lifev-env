@@ -1,11 +1,11 @@
 # Set the base image
-FROM debian AS build
+FROM ubuntu:18.04 AS build
 
 # Dockerfile author / maintainer 
 LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "
 
 # Update application repository list and install the Redis server. 
-RUN apt-get update -y && apt-get install -y gcc python g++ gfortran wget  git make 
+RUN apt-get update -y && apt-get install -y gcc python g++ gfortran wget git make
 
 # Copy the build scripts
 copy ./libs  /development/libs/
@@ -22,12 +22,12 @@ WORKDIR /development/libs
 FROM build as openmpi
 RUN ./build_openmpi.sh config_docker.sh
 
-FROM build as cmake
-RUN ./build_cmake.sh config_docker.sh
+FROM build as cmakevtk
+RUN ./build_cmake.sh config_docker.sh && ./build_vtk.sh config_docker.sh
 
 FROM build as final
 copy --from=openmpi /development/install /development/install
-copy --from=cmake /development/install /development/install
+copy --from=cmakevtk /development/install /development/install
 RUN ./build_part.sh config_docker.sh
 
 

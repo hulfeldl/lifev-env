@@ -61,4 +61,4 @@ ENABLE_EXAMPLES=ON
 
 # set this to pass additional parameters to cmake
 PARAMS=
-
+PARAMS="${PARAMS} -D TPL_ENABLE_VTK:BOOL=ON"
