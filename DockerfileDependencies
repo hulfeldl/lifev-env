@@ -13,25 +13,23 @@ copy ./libs  /development/libs/
 # Set path variable, such that cmake is bin found
 ENV PATH="/development/install/bin:/development/libs/cmake/install:${PATH}"
 
-
 WORKDIR /development/libs
-
-
 
 #with the base image we can build all the different subtages
 FROM build as openmpi
 RUN ./build_openmpi.sh config_docker.sh
 
+FROM build as cmake
+RUN ./build_cmake.sh config_docker.sh 
+
 FROM build as cmakevtk
-RUN ./build_cmake.sh config_docker.sh && ./build_vtk.sh config_docker.sh
+copy --from=openmpi /development/install /development/install
+copy --from=cmake /development/install /development/install
+RUN ./build_vtk.sh config_docker.sh
 
 FROM build as final
-copy --from=openmpi /development/install /development/install
 copy --from=cmakevtk /development/install /development/install
 RUN ./build_part.sh config_docker.sh
-
-
-
 
 WORKDIR /development
 
