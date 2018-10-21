@@ -6,15 +6,11 @@ pipelines:
       - step:
               caches:
                   - docker
-              name: Build dependency image openMPI
+              name: Build dependency partial image (openMPI cmake VTK)
               script:
-                   - docker build --target openmpi  -f DockerfileDependencies .
-      - step:
-              caches:
-                  - docker
-              name: Build dependency image cmake VTK
-              script:
-                  - docker build --target cmakevtk -f DockerfileDependencies .
+                  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+                  - docker build -t iheartpolimi/test:lifev-dependencies-partial-image-candidate -f DockerfileDependenciesPartial .
+                  - docker push iheartpolimi/test:lifev-dependencies-partial-image-candidate
       - step:
               caches:
                   - docker
