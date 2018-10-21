@@ -39,7 +39,7 @@ WORKDIR /development
 
 from scratch
 # copy the libs we just build in the empty image
-copy --from=final  /development/install /development/install
+copy --from=cmakevtk  /development/install /development/install
 
 # enable for interactive session
 # ENTRYPOINT ["/bin/bash"]
