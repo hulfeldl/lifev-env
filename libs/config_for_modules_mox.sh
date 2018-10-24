@@ -102,7 +102,7 @@ export PARMETIS_LIBRARIES="$PARMETIS_LIB_DIR/libparmetis.so;$METIS_LIB_DIR/libme
 #============================================================
 
 export HDF5_VERSION=1.8.19
-export HDF5_VERSION_MAJOR=18
+export HDF5_VERSION_MAJOR=19
 export HDF5_INSTALL_DIR=$mkHdf5Prefix
 export HDF5_INCLUDE_DIR=${HDF5_INSTALL_DIR}/include
 export HDF5_LIB_DIR=${HDF5_INSTALL_DIR}/lib
@@ -111,8 +111,7 @@ export HDF5_LIB_DIR=${HDF5_INSTALL_DIR}/lib
 #  SuiteSparse
 #============================================================
 
-export SUITESPARSE_VERSION=4.5.6
-#export SUITESPARSE_VERSION=4.4.5
+export SUITESPARSE_VERSION=4.5.4
 export SUITESPARSE_INSTALL_DIR=$mkSuitesparsePrefix
 export SUITESPARSE_INCLUDE_DIR=${SUITESPARSE_INSTALL_DIR}/include
 export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
@@ -121,9 +120,19 @@ export SUITESPARSE_LIB_DIR=${SUITESPARSE_INSTALL_DIR}/lib
 #  Trilinos
 #============================================================
 
-export TRILINOS_VERSION=12.12.1
-#export TRILINOS_VERSION=12.6.1
+export TRILINOS_VERSION=12.6.3
 export TRILINOS_INSTALL_DIR=$mkTrilinosPrefix
 export TRILINOS_INCLUDE_DIR=${TRILINOS_INSTALL_DIR}/include
 export TRILINOS_LIB_DIR=${TRILINOS_INSTALL_DIR}/lib
+
+
+#============================================================
+#  VTK
+#============================================================
+
+export VTK_VERSION=8.1.1
+export VTK_INSTALL_DIR=$mkVtkPrefix
+export VTK_INCLUDE_DIR=${VTK_INSTALL_DIR}/include
+export VTK_LIB_DIR=${VTK_INSTALL_DIR}/lib
+export VTK_DIR=${VTK_LIB_DIR}/cmake/vtk-8.1
 
