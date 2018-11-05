@@ -16,7 +16,7 @@ ENV PATH="/development/install/bin:/development/libs/cmake/install:${PATH}"
 WORKDIR /development/libs
 
 FROM build as final
-copy --from=iheartpolimi/test:lifev-dependencies-partial-image-candidate /development/install /development/install
+copy --from=iheartpolimi/lifev-dependencies-image:partial /development/install /development/install
 RUN ./build_part.sh config_docker.sh
 
 WORKDIR /development

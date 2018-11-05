@@ -9,22 +9,22 @@ pipelines:
               name: Build dependency partial image (openMPI cmake VTK)
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                  - docker build -t iheartpolimi/test:lifev-dependencies-partial-image-candidate -f DockerfileDependenciesPartial .
-                  - docker push iheartpolimi/test:lifev-dependencies-partial-image-candidate
+                  - docker build -t iheartpolimi/lifev-dependencies-image:partial -f DockerfileDependenciesPartial .
+                  - docker push iheartpolimi/lifev-dependencies-image:partial
       - step:
               caches:
                   - docker
               name: Build dependency image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                  - docker build -t iheartpolimi/test:lifev-dependencies-image-candidate -f DockerfileDependencies .
-                  - docker push iheartpolimi/test:lifev-dependencies-image-candidate
+                  - docker build -t iheartpolimi/lifev-dependencies-image:latest -f DockerfileDependencies .
+                  - docker push iheartpolimi/lifev-dependencies-image:latest
       - step:
               name: Build LifeV-Build image
               script:
                   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                  - docker build -t iheartpolimi/test:lifev-build-image-candidate -f DockerfileBuildLifeV .
-                  - docker push iheartpolimi/test:lifev-build-image-candidate
+                  - docker build -t iheartpolimi/lifev-build-image:latest -f DockerfileBuildLifeV .
+                  - docker push iheartpolimi/lifev-build-image:latest
 
 options:
   docker: true
