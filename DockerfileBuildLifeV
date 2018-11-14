@@ -1,5 +1,5 @@
 # Set the base image
-FROM debian AS build
+FROM ubuntu:18.04 AS build
 
 # Dockerfile author / maintainer /
 LABEL maintainer="Matthias Lange <Matthias.lange@Polimi.it> "

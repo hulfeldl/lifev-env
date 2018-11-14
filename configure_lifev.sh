@@ -72,6 +72,9 @@ fi
 if [ "$ENABLE_NAVIER_STOKES_BLOCKS" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_NavierStokesBlocks:BOOL=${ENABLE_NAVIER_STOKES_BLOCKS}"
 fi
+if [ "$ENABLE_NAVIER_STOKES_MOX" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_NavierStokesMox:BOOL=${ENABLE_NAVIER_STOKES_MOX}"
+fi
 if [ "$ENABLE_FSI_BLOCKS" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_FSI_blocks:BOOL=${ENABLE_FSI_BLOCKS}"
 fi
