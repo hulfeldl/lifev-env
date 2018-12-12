@@ -69,6 +69,9 @@ fi
 if [ "$ENABLE_DARCY" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_Darcy:BOOL=${ENABLE_DARCY}"
 fi
+if [ "$ENABLE_DARCY_BLOCKS" != "" ]; then
+    PARAMS2="${PARAMS2} -D LifeV_ENABLE_DarcyBlocks:BOOL=${ENABLE_DARCY_BLOCKS}"
+fi
 if [ "$ENABLE_NAVIER_STOKES_BLOCKS" != "" ]; then
     PARAMS2="${PARAMS2} -D LifeV_ENABLE_NavierStokesBlocks:BOOL=${ENABLE_NAVIER_STOKES_BLOCKS}"
 fi
