@@ -6,7 +6,7 @@
 /installs
 /metis.out
 /openblas.out
-/packages
+#/packages
 /parmetis.out
 /sources
 /suitesparse.out
