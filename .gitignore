@@ -1,4 +1,5 @@
 /lifev-*-build/
+/lifev-em
 /lifev-*-install/
 /lifev-*-debug/
 /lifev_config.sh
